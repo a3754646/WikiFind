@@ -16,9 +16,7 @@ https://en.wikipedia.org/w/api.php
 4. Retrieve introductory plain text and URLs.
 5. Export collected articles to JSON.
 
-## How to Run
-From the repository root:
-
+## Generate Sample
 pip install -r requirements.txt
 python data_collection/collect_articles.py
 
@@ -43,10 +41,3 @@ Each article contains:
 - Article relevance is not guaranteed.
 - Wikipedia content may change between runs.
 - 500 raw articles does not guarantee 500 valid articles.
-
-## Handoff
-Raw dataset is passed to the cleaning and
-validation teammate.
-
-Text normalization, filtering, and validation
-are handled separately.
