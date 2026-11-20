@@ -1,0 +1,5 @@
+500 articles
+category: electronics (later on add more)
+content: pageid,  Title,  introduction, url 
+collection method: api to local saves
+cleaning: duplicates, empty pages investigation, External links, citation
