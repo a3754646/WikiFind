@@ -19,6 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from types import MappingProxyType
 from typing import Callable, Iterable, Mapping, Sequence
+from wikifind.preprocessing import tokenize as preprocess_tokenize
 
 Tokenizer = Callable[[str], "list[str]"]
 
@@ -28,6 +29,7 @@ DEFAULT_INDEX = Path(__file__).with_name("wikifind_index.json.gz")
 
 _TOKEN_RE = re.compile(r"[a-z0-9]+")
 _BASIC_TOKENIZER_NAME = "basic"
+DEFAULT_TOKENIZER = "wikifind.preprocessing:tokenize"
 
 
 def basic_tokenize(text: str) -> list[str]:
@@ -208,7 +210,7 @@ def load_articles(path: str | Path = DEFAULT_ARTICLES) -> list[dict]:
 
 def build_index(
     articles: Iterable[Mapping],
-    tokenize: Tokenizer = basic_tokenize,
+    tokenize: Tokenizer = preprocess_tokenize, #changed from basic_tokenize
     include_title: bool = False,
 ) -> InvertedIndex:
     # Build an index from a list of articles.
@@ -236,7 +238,7 @@ def build_index(
 def search_candidates(
     index: InvertedIndex,
     query: str,
-    tokenize: Tokenizer = basic_tokenize,
+    tokenize: Tokenizer = preprocess_tokenize, #changed from basic_tokenize
     **retrieval_options,
 ) -> list[Candidate]:
     # Tokenize a query string and return its candidates.
@@ -296,7 +298,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     build = sub.add_parser("build", help="Build an index from the articles.")
     build.add_argument("--input", type=Path, default=DEFAULT_ARTICLES)
     build.add_argument("--output", type=Path, default=DEFAULT_INDEX)
-    build.add_argument("--tokenizer", default=_BASIC_TOKENIZER_NAME,
+    build.add_argument("--tokenizer", default=DEFAULT_TOKENIZER, # changed from _BASIC_TOKENIZER_NAME
                        help="'basic' or 'module:function', e.g. wikifind.preprocessing:tokenize")
     build.add_argument("--include-title", action="store_true", help="Also index article titles.")
     build.set_defaults(func=_cmd_build)
