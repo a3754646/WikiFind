@@ -5,6 +5,11 @@ Team Members: Ian Livingston (iannl2), Aidan Sosnowski (aidanjs7), Mohamed Kaba 
 
 Project Coordinator: Ian Livingston (iannl2)
 
+Dependencies:
+```sh
+pip install nltk
+```
+
 Project Description:
 
 Traditional search engines work best when users already know the correct keyword or name of what they are searching for. However, users often recognize an object or understand what it does without knowing what it is called.
